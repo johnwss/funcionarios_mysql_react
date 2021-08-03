@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import './App.css';
-import Axios from 'axios';
 import axios from 'axios';
 
 function App() {
@@ -10,9 +9,11 @@ function App() {
   const [cargo,setCargo] = useState('')
   const [salario,setSalario] = useState(0)
 
+  const [listaUsuarios,setListaUsuarios] = useState([]);
+
   //const infoTotal = () =>{console.log(nome + idade + pais + cargo + salario)}
   const enviandoDados = () =>{
-    axios.post('http://localhost:5000/criar',{
+    axios.post('http://192.168.1.9:5000/criar',{
       nome:nome,
       idade:idade,
       pais:pais,
@@ -21,6 +22,12 @@ function App() {
     }).then(()=>{console.log('sucesso!')});
     
   };
+
+  const getFuncionarios = () =>{
+    axios.get('http://192.168.1.9:5000/recebe').then((resposta)=>{
+    setListaUsuarios((resposta.data))
+    })
+  }
 
   return (
     <div className="App">
@@ -35,8 +42,19 @@ function App() {
     <input type='text' onChange={(x)=>{setCargo(x.target.value)}}></input>
     <label>Salário</label>
     <input type='text' onChange={(x)=>{setSalario(x.target.value)}}></input>    
-    <button onClick={enviandoDados}>Adicionar</button>
+    <button onClick={enviandoDados}>Adicionar Funcionário</button>
     </div>
+    <hr/>
+    
+    <div className="funcionarios">
+    <button onClick={getFuncionarios}>Exibir Funcionários
+    </button>
+    
+    {listaUsuarios.map((val)=>{
+      return <div>{val.nome}</div>
+    })}
+    </div>
+    
     </div> 
   );
 } 

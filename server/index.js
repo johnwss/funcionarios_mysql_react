@@ -13,7 +13,7 @@ const db = mysql.createConnection({
     database:'sistemaFuncionarios'
 })
 
-app.get('/servidor',(req,res)=>{res.send('dale')})
+app.get('/recebe',(req,res)=>{db.query("SELECT * FROM funcionarios",(err,resultado)=>{if(err){console.log(err)}else{res.send(resultado)}})})
 app.post('/criar',(req,res)=>{
     const nome = req.body.nome
     const idade = req.body.idade
