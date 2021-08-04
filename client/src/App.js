@@ -19,13 +19,17 @@ function App() {
       pais:pais,
       cargo:cargo,
       salario:salario
-    }).then(()=>{console.log('sucesso!')});
+    }).then(()=>{setListaUsuarios([...listaUsuarios,{nome:nome,
+      idade:idade,
+      pais:pais,
+      cargo:cargo,
+      salario:salario}])});
     
   };
 
   const getFuncionarios = () =>{
-    axios.get('http://192.168.1.9:5000/recebe').then((resposta)=>{
-    setListaUsuarios((resposta.data))
+    axios.get('http://192.168.1.9:5000/recebe').then((y)=>{
+    setListaUsuarios((y.data))
     })
   }
 
@@ -51,7 +55,12 @@ function App() {
     </button>
     
     {listaUsuarios.map((x)=>{
-      return <><br/><div>Nome:{x.nome}.Idade:{x.idade}.País:{x.pais}.Cargo:{x.cargo}.Salário:{x.salario}</div></>
+      return <><br/><div className="retornoFuncionarios"><h3>Nome:{x.nome}</h3>
+      <h3>Idade:{x.idade}</h3>
+      <h3>País:{x.pais}</h3>
+      <h3>Cargo:{x.cargo}</h3>
+      <h3>Salário:{x.salario}</h3>
+      </div></>
     })}
     </div>
     
