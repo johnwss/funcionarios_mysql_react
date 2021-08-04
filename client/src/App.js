@@ -50,8 +50,8 @@ function App() {
     <button onClick={getFuncionarios}>Exibir Funcionários
     </button>
     
-    {listaUsuarios.map((val)=>{
-      return <div>{val.nome}</div>
+    {listaUsuarios.map((x)=>{
+      return <><br/><div>Nome:{x.nome}.Idade:{x.idade}.País:{x.pais}.Cargo:{x.cargo}.Salário:{x.salario}</div></>
     })}
     </div>
     
